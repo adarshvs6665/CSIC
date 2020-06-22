@@ -4,16 +4,28 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Pair
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.ucek.csic.RegisterActivity
 import com.ucek.csic.R
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    private lateinit var emailLogin: EditText
+    private lateinit var passwordLogin: EditText
+
     private var btRegister: ImageButton? = null
     private var tvLogin: TextView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +34,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btRegister = findViewById(R.id.btRegister)
         tvLogin = findViewById(R.id.tvLogin)
         btRegister?.setOnClickListener(this)
+
+        emailLogin = findViewById(R.id.emailLogin)
+        passwordLogin = findViewById(R.id.passwordLogin)
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
