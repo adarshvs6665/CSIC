@@ -2,6 +2,7 @@ package com.ucek.csic
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.MenuItem
 import android.view.animation.Animation
@@ -11,12 +12,19 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.ucek.csic.model.UserData
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
 
+    private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
 
 //    private lateinit var nameSignup: EditText
@@ -68,9 +76,19 @@ class RegisterActivity : AppCompatActivity() {
 //        val currentUser = auth.currentUser
 //        updateUI(currentUser)
 //    }
-//
+
 //    private fun updateUI(currentUser: FirebaseUser?) {
+//        if (currentUser != null)
+//            if (currentUser.isEmailVerified) {
+//                database = Firebase.database.reference
+//                database.child("users").child(currentUser!!.uid).child("Verification").setValue("YES")
+//                startActivity(Intent(this, MainActivity::class.java))
+//                finish()
 //
+//            } else {
+//                startActivity(Intent(this, MainActivity::class.java))
+//                finish()
+//            }
 //    }
 
     private fun signupUser() {
@@ -114,21 +132,42 @@ class RegisterActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(emailSignup.text.toString(), passwordSignup.text.toString())
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(baseContext, "Login to continue.", Toast.LENGTH_LONG).show()
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
+                        val user = Firebase.auth.currentUser
+                        getUSerData(user)
+                        user!!.sendEmailVerification()
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        Log.d("Register Activity", "Email sent.")
+                                        startActivity(Intent(this, MainActivity::class.java))
+                                        finish()
+                                    }
+                                }
+//                        Toast.makeText(baseContext, "Login to continue.", Toast.LENGTH_LONG).show()
+//                        startActivity(Intent(this, MainActivity::class.java))
+//                        finish()
                     } else {
                         Toast.makeText(baseContext, "Signup failed",
                                 Toast.LENGTH_SHORT).show()
                     }
                 }
     }
-    fun isValidPassword(password: String?): Boolean {
+
+    private fun isValidPassword(password: String?): Boolean {
         val pattern: Pattern
         val matcher: Matcher
         val PASSWORD_PATTERN = "^(?=.*[a-z])(?=.*[A-Z]).{8,16}\$"
         pattern = Pattern.compile(PASSWORD_PATTERN)
         matcher = pattern.matcher(password)
         return matcher.matches()
+    }
+
+    private fun getUSerData(userobject: FirebaseUser?) {
+        val user = UserData(
+                nameSignup.text.toString(),
+                emailSignup.text.toString(),
+                "NO"
+        )
+        database = Firebase.database.reference
+        database.child("users").child(userobject!!.uid).setValue(user)
     }
 }

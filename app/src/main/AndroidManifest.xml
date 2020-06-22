@@ -21,6 +21,9 @@
         <activity
             android:name=".RegisterActivity"
             android:theme="@style/AppTheme.FullScreen"></activity>
+        <activity
+                android:name=".Home"
+                android:theme="@style/AppTheme.FullScreen"></activity>
     </application>
 
 </manifest>
