@@ -23,6 +23,8 @@ import com.ucek.csic.R
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
+    private lateinit var auth: FirebaseAuth
+
     private lateinit var emailLogin: EditText
     private lateinit var passwordLogin: EditText
 
@@ -31,6 +33,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        auth = FirebaseAuth.getInstance()
+
         btRegister = findViewById(R.id.btRegister)
         tvLogin = findViewById(R.id.tvLogin)
         btRegister?.setOnClickListener(this)
@@ -48,5 +53,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             val activityOptions = ActivityOptions.makeSceneTransitionAnimation(this@MainActivity, pairs[0] as Pair<View, String>?)
             startActivity(intent, activityOptions.toBundle())
         }
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        updateUI(currentUser)
+    }
+
+    private fun updateUI(currentUser: FirebaseUser?) {
+
     }
 }
