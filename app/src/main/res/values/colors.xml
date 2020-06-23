@@ -8,4 +8,9 @@
     <color name="colorPurpleT">#64983cff</color>
     <color name="colorBlue">#2FB4FF</color>
     <color name="colorBlueT">#642fb4ff</color>
+    <color name="remove">#f83821</color>
+    <color name="add">#fdd30f</color>
+    <color name="iconcolor">#465881</color>
+    <color name="black">#000000</color>
+    <color name="menutextcolor">#E5A91E</color>
 </resources>
