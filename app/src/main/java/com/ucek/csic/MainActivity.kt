@@ -4,26 +4,20 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Pair
 import android.util.Patterns
 import android.view.View
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.ucek.csic.RegisterActivity
-import com.ucek.csic.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_register.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -72,7 +66,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             if (currentUser.isEmailVerified) {
                 database = Firebase.database.reference
                 database.child("users").child(currentUser!!.uid).child("verification").setValue("YES")
-                startActivity(Intent(this, Home::class.java))
+                startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             } else {
                 Toast.makeText(baseContext,"Please verify your email address", Toast.LENGTH_SHORT).show()

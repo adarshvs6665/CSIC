@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">CSIC</string>
+    <string name="app_name">CSIC App</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="Registration">Create a New Account?</string>
+    <string name="Login">Already Have an Account?</string>
+    <string name="Loginbt">Login</string>
+    <string name="Registerbt">Register</string>
+
+
+    <string name="home">Home</string>
+    <string name="my_profile">My Profile</string>
+    <string name="favorite">Favorite</string>
+    <string name="history">History</string>
+    <string name="faqs">FAQs</string>
+    <string name="log_out">Log out</string>
+    <string name="username">Username</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="open_drawer">open</string>
+    <string name="close_drawer">close</string>
+    <string name="action_sort">Sort</string>
 </resources>
